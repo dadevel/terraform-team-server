@@ -70,6 +70,9 @@ write_files:
 
     [Install]
     WantedBy=multi-user.target
+- path: /etc/sysctl.d/port.conf
+  content: |
+    net.ipv4.ip_unprivileged_port_start=0
 runcmd:
 - curl -sSf -o /tmp/releases.json https://api.github.com/repos/bishopfox/sliver/releases/latest
 - jq -r '.assets[]|select(.name=="sliver-server_linux")|.browser_download_url' /tmp/releases.json | wget -i - -O /usr/local/bin/sliver-server
